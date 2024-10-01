@@ -1,0 +1,265 @@
+import { useState, useEffect } from 'react'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+export default function Portfolio() {
+  const [currentProject, setCurrentProject] = useState(1)
+  const [currentTestimonial, setCurrentTestimonial] = useState(1)
+
+  const projects = [
+    {
+      title: "eLearning Courseware Creation",
+      client: "Indigenous Treaty Partners",
+      overview: "Online corporate learning courses for building partnerships with Indigenous Peoples.",
+      link: "https://www.treatypartners.ca/"
+    },
+    {
+      title: "Feel Good",
+      client: "Independent Arts",
+      overview: "Award-winning digital anthology of queer stories by young African writers.",
+      link: "https://www.afeelgoodbook.com/"
+    },
+    {
+      title: "Cover Bank",
+      client: "wuruwuru",
+      overview: "Comprehensive retrospective of Nigerian album covers over 70 years.",
+      link: "https://www.albumcoverbank.com/"
+    },
+    {
+      title: "Hanky Panky",
+      client: "wuruwuru",
+      overview: "Award-winning animated short film.",
+      link: "https://www.youtube.com/watch?v=wVrJhlW4Uw4&ab_channel=wuruwuru"
+    },
+    {
+      title: "LUDO x Yadi",
+      client: "Independent Arts",
+      overview: "Contemporary take on a classic board game.",
+      link: "https://www.ludobyyadi.com/"
+    },
+    {
+      title: "SCADA Network Mapping",
+      client: "EKEDC",
+      overview: "Network mapping of SCADA systems for accurate representation.",
+      link: "https://ekedp.com/"
+    },
+    {
+      title: "eLearning Courseware Creation",
+      client: "Royal Canadian Navy",
+      overview: "Course on navigating tides and currents for Fleet Navigation Officers.",
+      link: "#"
+    }
+  ]
+
+  const testimonials = [
+    {
+      quote: "Williams handles inevitable changes in scope with remarkable poise, adapting as necessary without compromising on quality.",
+      author: "Emily Burke",
+      position: "Delivery Manager - BBC"
+    },
+    {
+      quote: "Williams expertise in risk and change management is especially impressive.",
+      author: "Corey Mattie",
+      position: "Co-Founder - Indigenous Treaty Partners"
+    },
+    {
+      quote: "Will",
+      author: "Opemipo Aikomo",
+      position: "Director - wuruwuru"
+    },
+    {
+      quote: "His brilliance as a coordinator and communicator was evident in every aspect of our projects.",
+      author: "Daniel Orubo",
+      position: "Co-Founder & CEO - ConTech Africa"
+    },
+    {
+      quote: "Williams impact on our team, processes and projects was nothing short of transformative.",
+      author: "Yakubu Odior",
+      position: "HoG Civil Projects - EKEDC"
+    }
+  ]
+
+  const nextProject = () => {
+    setCurrentProject((currentProject + 1) % projects.length)
+  }
+
+  const prevProject = () => {
+    setCurrentProject((currentProject - 1 + projects.length) % projects.length)
+  }
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((currentTestimonial + 1) % testimonials.length)
+  }
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((currentTestimonial - 1 + testimonials.length) % testimonials.length)
+  }
+
+  useEffect(() => {
+    document.body.style.backgroundColor = '#F8F8F8'
+  }, [])
+
+  return (
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F8F8F8', color: '#2F342E' }}>
+      <div className="max-w-7xl mx-auto">
+        <header className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4" style={{ color: '#2F342E' }}>Will's Portfolio</h1>
+          <p className="text-xl" style={{ color: '#6F6E61' }}>
+            Certified Project Manager with over six years of experience
+          </p>
+        </header>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>About Me</h2>
+          <p className="text-lg" style={{ color: '#6F6E61' }}>
+            Hello! I'm Will, a certified Project Manager with over six years of experience successfully delivering complex projects on time and within budget across diverse industries, including tech, media, and construction. I have a proven track record of leading cross-functional teams, optimizing processes, and driving continuous improvement in both startup environments and established organizations.
+          </p>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>Projects</h2>
+          <div className="relative">
+            <div className="flex justify-center items-center gap-4">
+              {[-1, 0, 1].map((offset) => {
+                const index = (currentProject + offset + projects.length) % projects.length
+                const project = projects[index]
+                return (
+                  <Card key={index} className={`w-1/3 ${offset === 0 ? 'scale-110 z-10' : 'scale-90 opacity-70'}`} style={{ backgroundColor: offset === 0 ? '#D1CDCE' : '#F8F8F8', transition: 'all 0.3s ease' }}>
+                    <CardHeader>
+                      <CardTitle style={{ color: '#2F342E' }}>{project.title}</CardTitle>
+                      <CardDescription style={{ color: '#6F6E61' }}>Client: {project.client}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p style={{ color: '#6F6E61' }}>{project.overview}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm font-medium" style={{ color: '#2F342E' }}>
+                        View Project
+                      </a>
+                    </CardFooter>
+                  </Card>
+                )
+              })}
+            </div>
+            <Button onClick={prevProject} className="absolute left-0 top-1/2 transform -translate-y-1/2" style={{ backgroundColor: '#6F6E61', color: '#F8F8F8' }}>
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button onClick={nextProject} className="absolute right-0 top-1/2 transform -translate-y-1/2" style={{ backgroundColor: '#6F6E61', color: '#F8F8F8' }}>
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>Career</h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-2xl font-semibold" style={{ color: '#2F342E' }}>Adeyinka Consult</h3>
+              <p style={{ color: '#6F6E61' }}>Started as an architect in 2017, drafting 2D plans, creating 3D renderings, and conducting site inspections. This experience ignited my passion for effective planning and project management.</p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold" style={{ color: '#2F342E' }}>EKEDC</h3>
+              <p style={{ color: '#6F6E61' }}>Began project management journey in December 2018. Established a streamlined pipeline for daily updates on quality assurance inspections, enhancing project delivery and fostering collaboration.</p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold" style={{ color: '#2F342E' }}>wuruwuru</h3>
+              <p style={{ color: '#6F6E61' }}>Joined in 2021 to enhance operational structure. Implemented Agile framework and Scrum methodologies, significantly improving project delivery and team dynamics.</p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold" style={{ color: '#2F342E' }}>RaceRocks 3D</h3>
+              <p style={{ color: '#6F6E61' }}>Joined in 2023, focusing on training modernization. Implemented streamlined techniques, optimized project management tools, and developed comprehensive client-side documentation.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>Testimonials</h2>
+          <div className="relative">
+            <div className="flex justify-center items-center gap-4">
+              {[-1, 0, 1].map((offset) => {
+                const index = (currentTestimonial + offset + testimonials.length) % testimonials.length
+                const testimonial = testimonials[index]
+                return (
+                  <Card key={index} className={`w-1/3 ${offset === 0 ? 'scale-110 z-10' : 'scale-90 opacity-70'}`} style={{ backgroundColor: offset === 0 ? '#D1CDCE' : '#F8F8F8', transition: 'all 0.3s ease' }}>
+                    <CardContent className="pt-6">
+                      <blockquote className="text-lg italic mb-4" style={{ color: '#6F6E61' }}>"{testimonial.quote}"</blockquote>
+                      <p className="font-semibold" style={{ color: '#2F342E' }}>{testimonial.author}</p>
+                      <p style={{ color: '#6F6E61' }}>{testimonial.position}</p>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+            <Button onClick={prevTestimonial} className="absolute left-0 top-1/2 transform -translate-y-1/2" style={{ backgroundColor: '#6F6E61', color: '#F8F8F8' }}>
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button onClick={nextTestimonial} className="absolute right-0 top-1/2 transform -translate-y-1/2" style={{ backgroundColor: '#6F6E61', color: '#F8F8F8' }}>
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>Certifications</h2>
+          <ul className="list-disc list-inside text-lg" style={{ color: '#6F6E61' }}>
+            <li>Project Management Professional (PMP) – June 2021</li>
+            <li>Agile Certified Practitioner (ACP) – February 2024</li>
+          </ul>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>Available for</h2>
+          <ul className="list-disc list-inside text-lg" style={{ color: '#6F6E61' }}>
+            <li>Project Management</li>
+            <li>Process Optimisation</li>
+            <li>Operational Efficiency</li>
+            <li>Project Strategy</li>
+            <li>Risk Management</li>
+            <li>Consultations</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#2F342E' }}>Contact Me</h2>
+          <Card style={{ backgroundColor: '#D1CDCE' }}>
+            <CardHeader>
+              <CardTitle style={{ color: '#2F342E' }}>Get in Touch</CardTitle>
+              <CardDescription style={{ color: '#6F6E61' }}>Fill out the form below to contact me about your project needs.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form className="space-y-4">
+                <div>
+                  <Label htmlFor="name" style={{ color: '#2F342E' }}>Name</Label>
+                  <Input id="name" placeholder="Your Name" style={{ backgroundColor: '#F8F8F8', color: '#2F342E' }} />
+                </div>
+                <div>
+                  <Label htmlFor="email" style={{ color: '#2F342E' }}>E-mail Address</Label>
+                  <Input id="email" type="email" placeholder="your.email@example.com" style={{ backgroundColor: '#F8F8F8', color: '#2F342E' }} />
+                </div>
+                <div>
+                  <Label htmlFor="company" style={{ color: '#2F342E' }}>Company Website</Label>
+                  <Input id="company" placeholder="https://your-company.com" style={{ backgroundColor: '#F8F8F8', color: '#2F342E' }} />
+                </div>
+                <div>
+                  <Label htmlFor="project" style={{ color: '#2F342E' }}>Project Description</Label>
+                  <Textarea id="project" placeholder="Briefly describe your project" style={{ backgroundColor: '#F8F8F8', color: '#2F342E' }} />
+                </div>
+                <div>
+                  <Label htmlFor="service" style={{ color: '#2F342E' }}>Service Needed</Label>
+                  <Input id="service" placeholder="e.g., Project Management, Consultation" style={{ backgroundColor: '#F8F8F8', color: '#2F342E' }} />
+                </div>
+              </form>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" style={{ backgroundColor: '#6F6E61', color: '#F8F8F8' }}>Submit</Button>
+            </CardFooter>
+          </Card>
+        </section>
+      </div>
+    </div>
+  )
+}
